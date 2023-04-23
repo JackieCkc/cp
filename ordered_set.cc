@@ -19,4 +19,4 @@ typedef tree<int, null_type, less<int>, rb_tree_tag,
 // oms s;
 // s.insert(v);
 // s.order_of_key(v);
-// s.find_by_order()v;
+// s.find_by_order(v);
