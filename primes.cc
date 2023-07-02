@@ -8,6 +8,8 @@ vector<int> GetPrimes(int mv) {
     for (long long i = 2; i <= mv; i++) {
         if (mp[i]) {
             arr.push_back(i);
+        } else {
+            continue;
         }
         for (long long j = i + i; j <= mv; j += i) {
             mp[j] = 0;
