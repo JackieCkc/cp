@@ -4,8 +4,6 @@ using namespace std;
 
 vector<int> GetPrimes(int mv) {
     vector<int> mp(mv + 1, 1);
-    mp[0] = 0;
-    mp[1] = 0;
     vector<int> arr;
     for (long long i = 2; i <= mv; i++) {
         if (mp[i]) {
