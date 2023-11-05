@@ -8,7 +8,7 @@ class SegTree {
   SegTree(int n) : n_(n) {
     int sz = ceil(log2(n));
     sz = 2 * pow(2, sz) - 1;
-    tree_ = vector<int>(sz);
+    tree_ = vector<T>(sz);
   }
 
   T QueryMax(int l, int r) { return query_max_util(0, l, r, 0, n_ - 1); }
@@ -47,5 +47,5 @@ class SegTree {
   }
 
   int n_;
-  vector<int> tree_;
+  vector<T> tree_;
 };
