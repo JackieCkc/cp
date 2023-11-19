@@ -6,7 +6,6 @@ using namespace std;
 constexpr int n = 1000;
 SegTree<int> st(n);
 st.Update(0, 1);
-// full range
 auto min_val = st.QueryMin(0, n - 1);
 */
 template <typename T>
@@ -18,6 +17,7 @@ class SegTree {
     tree_ = vector<T>(sz, INT_MAX);
   }
 
+  // Query for min val in range [l, r]
   T QueryMin(int l, int r) { return query_min_util(0, l, r, 0, n_ - 1); }
 
   void Update(int i, T val) { update_util(0, 0, n_ - 1, i, val); }
