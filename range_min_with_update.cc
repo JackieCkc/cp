@@ -17,7 +17,7 @@ class SegTree {
     tree_ = vector<T>(sz, INT_MAX);
   }
 
-  // Query for min val in range [l, r]
+  // Query for the min value in the range [l, r]
   T QueryMin(int l, int r) { return query_min_util(0, l, r, 0, n_ - 1); }
 
   void Update(int i, T val) { update_util(0, 0, n_ - 1, i, val); }
