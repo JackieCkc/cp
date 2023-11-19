@@ -13,8 +13,6 @@ class SegTree {
 
   T QueryMax(int l, int r) { return query_max_util(0, l, r, 0, n_ - 1); }
 
-  T QueryMin(int l, int r) { return query_min_util(0, l, r, 0, n_ - 1); }
-
   void Update(int i, T val) { update_util(0, 0, n_ - 1, i, val); }
 
  private:
@@ -24,14 +22,6 @@ class SegTree {
     int m = (l + r) / 2;
     return max(query_max_util(2 * i + 1, qL, qR, l, m),
                query_max_util(2 * i + 2, qL, qR, m + 1, r));
-  }
-
-  T query_min_util(int i, int qL, int qR, int l, int r) {
-    if (l >= qL && r <= qR) return tree_[i];
-    if (l > qR || r < qL) return INT_MIN;
-    int m = (l + r) / 2;
-    return min(query_min_util(2 * i + 1, qL, qR, l, m),
-               query_min_util(2 * i + 2, qL, qR, m + 1, r));
   }
 
   void update_util(int i, int l, int r, int pos, T val) {
