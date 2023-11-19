@@ -2,6 +2,13 @@
 
 using namespace std;
 
+/*
+constexpr int n = 1000;
+SegTree<int> st(n);
+st.Update(0, 1);
+// full range
+auto min_val = st.QueryMin(0, n - 1);
+*/
 template <typename T>
 class SegTree {
  public:
