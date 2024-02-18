@@ -13,7 +13,7 @@ class RollingHash {
   RollingHash(vector<T>& arr) { init(arr); }
 
   RollingHash(string& s) {
-    vector<int> arr(s.size());
+    vector<T> arr(s.size());
     for (int i = 0; i < s.size(); i++) {
       arr[i] = s[i] - 'a';
     }
