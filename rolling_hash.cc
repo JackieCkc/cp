@@ -21,10 +21,8 @@ class RollingHash {
   }
 
   pair<ll, ll> Hash(int l, int r) {
-    if (l > r) {
-      cout << "l > r" << endl;
-      return {0, 0};
-    }
+    assert(l <= r);
+   
     while ((int)pmo[0].size() < r + 2) {
       pmo[0].push_back(pmo[0].back() * mul0 % mo0_);
       pmo[1].push_back(pmo[1].back() * mul1 % mo1_);
