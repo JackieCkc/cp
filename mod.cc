@@ -1,5 +1,5 @@
-unsigned long long power(unsigned long long x, int y, int p) {
-  unsigned long long res = 1;
+long long power(long long x, long long y, int p) {
+  long long res = 1;
   x = x % p;
   while (y > 0) {
     if (y & 1) res = (res * x) % p;
@@ -9,6 +9,6 @@ unsigned long long power(unsigned long long x, int y, int p) {
   return res;
 }
 
-unsigned long long modInverse(unsigned long long n, int p) {
+long long modInverse(long long n, int p) {
   return power(n, p - 2, p);
 }
