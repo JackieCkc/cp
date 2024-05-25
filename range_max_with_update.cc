@@ -34,7 +34,7 @@ class SegTree {
   void update_util(int i, int l, int r, int pos, T val) {
     if (pos < l || pos > r) return;
     if (l == r) {
-      tree_[i] = max(val, tree_[i]);
+      tree_[i] = val;
       return;
     }
     int m = (l + r) / 2;
