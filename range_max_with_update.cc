@@ -17,7 +17,6 @@ class SegTree {
     tree_ = vector<T>(sz);
   }
 
-  // Query the max value for the range [l, r]
   T QueryMax(int l, int r) { return query_max_util(0, l, r, 0, n_ - 1); }
 
   void Update(int i, T val) { update_util(0, 0, n_ - 1, i, val); }
