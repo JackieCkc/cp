@@ -2,80 +2,51 @@
 
 using namespace std;
 
-class SegmentTree {
+/*
+constexpr int n = 1000;
+SegTree<int> st(n);
+st.Update(0, 1);
+auto max_val = st.Query(0, n - 1); // => 1
+*/
+template <typename T> class SegTree {
 public:
-  SegmentTree(vector<int> &arr, int size) {
-    n_ = size;
-    tree_.resize(4 * n_);
-    lazy_.resize(4 * n_);
-    build_helper(arr, 0, n_ - 1, 0);
+  SegTree(int n) : n_(n) {
+    int sz = ceil(log2(n));
+    sz = 2 * pow(2, sz) - 1;
+    tree_ = vector<T>(sz);
   }
 
-  int query(int left, int right) {
-    return query_helper(0, 0, n_ - 1, left, right);
-  }
+  T Query(int l, int r) { return query_util(0, l, r, 0, n_ - 1); }
 
-  void update(int left, int right, int val) {
-    update_helper(0, 0, n_ - 1, left, right, val);
-  }
+  void Update(int i, T val) { update_util(0, 0, n_ - 1, i, val); }
 
 private:
-  vector<int> tree_, lazy_;
-  int n_;
-
-  void build_helper(vector<int> &arr, int start, int end, int node) {
-    if (start == end) {
-      tree_[node] = arr[start];
-    } else {
-      int mid = (start + end) / 2;
-      build_helper(arr, start, mid, node * 2 + 1);
-      build_helper(arr, mid + 1, end, node * 2 + 2);
-      tree_[node] = tree_[node * 2 + 1] + tree_[node * 2 + 2];
+  T query_util(int i, int qL, int qR, int l, int r) {
+    if (l >= qL && r <= qR) {
+      return tree_[i];
     }
-  }
-
-  void propagate(int node, int start, int end) {
-    if (lazy_[node] != 0) {
-      tree_[node] += (end - start + 1) * lazy_[node];
-      if (start != end) {
-        lazy_[node * 2 + 1] += lazy_[node];
-        lazy_[node * 2 + 2] += lazy_[node];
-      }
-      lazy_[node] = 0;
-    }
-  }
-
-  int query_helper(int node, int start, int end, int left, int right) {
-    propagate(node, start, end);
-    if (right < start || end < left) {
+    if (l > qR || r < qL) {
       return 0;
     }
-    if (left <= start && end <= right) {
-      return tree_[node];
-    }
-    int mid = (start + end) / 2;
-    int sum_left = query_helper(node * 2 + 1, start, mid, left, right);
-    int sum_right = query_helper(node * 2 + 2, mid + 1, end, left, right);
-    return sum_left + sum_right;
+    int m = (l + r) / 2;
+    return query_util(2 * i + 1, qL, qR, l, m) +
+           query_util(2 * i + 2, qL, qR, m + 1, r);
   }
 
-  void update_helper(int node, int start, int end, int left, int right,
-                     int val) {
-    propagate(node, start, end);
-    if (right < start || end < left) {
+  void update_util(int i, int l, int r, int pos, T val) {
+    if (pos < l || pos > r) {
       return;
     }
-    if (left <= start && end <= right) {
-      tree_[node] += (end - start + 1) * val;
-      if (start != end) {
-        lazy_[node * 2 + 1] += val;
-        lazy_[node * 2 + 2] += val;
-      }
+    if (l == r) {
+      tree_[i] = val;
       return;
     }
-    int mid = (start + end) / 2;
-    update_helper(node * 2 + 1, start, mid, left, right, val);
-    update_helper(node * 2 + 2, mid + 1, end, left, right, val);
-    tree_[node] = tree_[node * 2 + 1] + tree_[node * 2 + 2];
+    int m = (l + r) / 2;
+    update_util(2 * i + 1, l, m, pos, val);
+    update_util(2 * i + 2, m + 1, r, pos, val);
+    tree_[i] = tree_[2 * i + 1] + tree_[2 * i + 2];
   }
+
+  int n_;
+  vector<T> tree_;
 };
